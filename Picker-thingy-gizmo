@@ -23,8 +23,7 @@ our $file;
 our $random;
 our $lastline;
 our $url;
-$file = "";
-print "What file do you want to open? ", $file, "\n";
+print "What file do you want to open? ", "\n";
 ### Lists txt files in current directory in a selectable numerical
 ### list.
  my @files = <*.txt>;
