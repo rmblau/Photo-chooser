@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Picker-thingy-gizmo0.0.1.>
+# Picker-thingy-gizmo0.0.2.>
 #   Copyright (C) 2013  Matthew Blau
 
 #    This program is free software; you can redistribute it and/or modify
@@ -16,35 +16,31 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#!/usr/bin/perl
+#test_hash.plx
 use warnings;
 use strict;
-our $files;
-our $file;
-our $random;
-our $lastline;
-our $url;
+my $choice;
+my %hash =();
 print "What file do you want to open? ", "\n";
-### Lists txt files in current directory in a selectable numerical
-### list.
- my @files = <*.txt>;
- my $x = 1;
- foreach $file (@files) {
-    print $x." ".$file . "\n";
+my @files = <*.txt>;
+my $x = 1;
+ foreach $choice (@files) {
+    print $x." ".$choice . "\n";
     $x++;
 }
-$file = <STDIN>; ## allows the user to choose what file
-open FILE, "<$files[$file-1]" or die "Can not open $file: $!\n";
-my @array=<FILE>; ## reads into an array
-$lastline = '$array[array-1]';
-do{
-        $random = rand(@array);
-        $url = $array[$random];
-} while($url eq $lastline);
-print $url;
-open INFO, ">>$files[$file-1]" or die "Can not open $file: $!\n"; ##appends chosen object to end of file
-my @array1=<INFO>;
-print INFO "$url";
-print @array1;
-delete $array[$random];
-push(@array, $url);
-close FILE;
+
+chomp ($choice = <>);
+open FILE, "<$files[$choice-1]" or die "can not open $files[$choice]: $!\n";
+my @urls = <FILE>;
+my $lines = @urls;
+my $num = 1;
+foreach(@urls) {
+	$hash{$num} = $_;
+	$num++;
+}
+my $randomLine = int(rand($lines))+1;
+print $hash{$randomLine};
+
+
+
